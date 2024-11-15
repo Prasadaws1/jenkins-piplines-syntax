@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+    stages {
+        stage ("code") {
+            steps {
+                git 'url' #-----git hub url ----> select branch----> in script ----> (git credential:url)
+            }
+        }
+        stage ("build") {
+            steps {
+                sh 'mvn clean package' ## maven ----build
+            }
+        }
+        stage ("aritifact") {
+            steps {
+                script of nexus  #  nexus artifact ---> plugin ---> pipeline script ---> give info ----> paste script
+            }
+        }
+        stage ("deploy") {
+            steps {
+                script of tomcat        # # need deplot to container ----> plugin---->pipeline script ----> give info-----> paste here script
+            }
+        }
+    }
+    output {
+        success {
+            echo "our job will success"
+        }
+        failure {
+            echo "your jon will failure"
+        }
+        allways {
+            echo "your build will process" 
+        }
+
+    }
+}
