@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    parameters {
+        boolean(name: "prasad" , defaltvalue: "true" , description "")
+    }
+    parameters {
+        choice (name: "prasad" , choices: ["sandeep" , "kiran" , "janu"])
+    }
+    stages {
+        stage ("parameters") {
+            steps {
+                sh "touch $prasad // echo "hi this is boolean"
+            }
+        }
+    }
+}
